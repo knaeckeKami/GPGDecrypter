@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="DecryptClipboard">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/artifacts/DecryptClipboard/DecryptClipboard.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

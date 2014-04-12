@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="GpgDecrypt">
+    <output-path>$PROJECT_DIR$/out/artifacts/GpgDecrypt</output-path>
+    <root id="archive" name="GpgDecrypt.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="GPGDecrypt" />
+    </root>
+  </artifact>
+</component>
