@@ -8,3 +8,5 @@ This tool assumes that you already have installed GPG and have an executable nam
 It just reads the content of your clipboard, attempts to decrypt it with gpg (you may need to enter a passphrase), and writes the decrypted message to your clipboard.
 
 Needs Java 8.
+
+Executables can be found in https://github.com/knaeckeKami/GPGDecrypter/tree/master/out/artifacts/GpgDecrypt
