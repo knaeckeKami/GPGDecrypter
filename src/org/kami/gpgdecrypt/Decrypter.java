@@ -5,5 +5,5 @@ package org.kami.gpgdecrypt;
  */
 public interface Decrypter {
 
-    String decrypt(String msg) throws  Exception;
+    String decrypt(String msg) throws Exception;
 }

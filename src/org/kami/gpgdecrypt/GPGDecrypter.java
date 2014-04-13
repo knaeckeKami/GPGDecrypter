@@ -8,22 +8,22 @@ import java.io.*;
 public class GPGDecrypter implements Decrypter {
 
     //assume gpg is in the path
-    private static final String DEFAULT_GPG_EXECUTABLE = "gpg";
+    public static final String DEFAULT_GPG_EXECUTABLE = "gpg";
     private static final String EOF = "\u001A";
 
 
     private String executable = null;
 
-    public  GPGDecrypter(){
+    public GPGDecrypter() {
         executable = DEFAULT_GPG_EXECUTABLE;
     }
 
-    public  GPGDecrypter(String executable){
+    public GPGDecrypter(String executable) {
         this.executable = executable;
     }
 
 
-    public String decrypt(String msg) throws UnsupportedEncodingException, IOException{
+    public String decrypt(String msg) throws UnsupportedEncodingException, IOException {
         Process p = null;
         BufferedReader in = null;
         BufferedReader error = null;
@@ -32,8 +32,9 @@ public class GPGDecrypter implements Decrypter {
         boolean isOutClosed = false;
 
         try {
+
             //run gpg
-            p = Runtime.getRuntime().exec(this.executable);
+            p = Runtime.getRuntime().exec(executable);
             in = new BufferedReader(new InputStreamReader(p.getInputStream(), "US-ASCII"));
             error = new BufferedReader(new InputStreamReader(p.getErrorStream(), "US-ASCII"));
 
