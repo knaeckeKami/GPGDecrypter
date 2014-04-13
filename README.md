@@ -9,4 +9,3 @@ It just reads the content of your clipboard, attempts to decrypt it with gpg (yo
 
 Needs Java 8.
 
-Executables can be found in https://github.com/knaeckeKami/GPGDecrypter/tree/master/out/artifacts/GpgDecrypt

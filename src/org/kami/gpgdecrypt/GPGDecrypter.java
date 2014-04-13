@@ -23,8 +23,8 @@ public class GPGDecrypter implements Decrypter {
     }
 
 
-    public String decrypt(String msg) throws UnsupportedEncodingException, IOException {
-        Process p = null;
+    public String decrypt(String msg) throws IOException {
+        Process gpgProcess = null;
         BufferedReader in = null;
         BufferedReader error = null;
         Writer out = null;
@@ -34,11 +34,11 @@ public class GPGDecrypter implements Decrypter {
         try {
 
             //run gpg
-            p = Runtime.getRuntime().exec(executable);
-            in = new BufferedReader(new InputStreamReader(p.getInputStream(), "US-ASCII"));
-            error = new BufferedReader(new InputStreamReader(p.getErrorStream(), "US-ASCII"));
+            gpgProcess = Runtime.getRuntime().exec(executable);
+            in = new BufferedReader(new InputStreamReader(gpgProcess.getInputStream(), "US-ASCII"));
+            error = new BufferedReader(new InputStreamReader(gpgProcess.getErrorStream(), "US-ASCII"));
 
-            out = (new OutputStreamWriter(p.getOutputStream(), "US-ASCII"));
+            out = (new OutputStreamWriter(gpgProcess.getOutputStream(), "US-ASCII"));
             //write message, newline and STRG-Z (EOF) to gpg
             out.write(msg);
             out.write(System.lineSeparator());
@@ -70,8 +70,8 @@ public class GPGDecrypter implements Decrypter {
             if (error != null) {
                 error.close();
             }
-            if (p != null) {
-                p.destroy();
+            if (gpgProcess != null) {
+                gpgProcess.destroy();
             }
         }
     }
