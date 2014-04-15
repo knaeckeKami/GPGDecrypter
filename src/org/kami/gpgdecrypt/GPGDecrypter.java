@@ -1,6 +1,9 @@
 package org.kami.gpgdecrypt;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 /**
  * Created by knaeckeKami on 11.04.2014.
@@ -22,22 +25,26 @@ public class GPGDecrypter implements Decrypter {
         this.executable = executable;
     }
 
+    private static String convertStreamToString(java.io.InputStream is) {
+        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+        return s.hasNext() ? s.next() : "";
+    }
 
     public String decrypt(String msg) throws IOException {
         Process gpgProcess = null;
-        BufferedReader in = null;
-        BufferedReader error = null;
+        InputStream in = null;
+        InputStream error = null;
         Writer out = null;
 
         boolean isOutClosed = false;
 
         try {
 
-            //run gpg
+            //run gpg process
             gpgProcess = Runtime.getRuntime().exec(executable);
-            in = new BufferedReader(new InputStreamReader(gpgProcess.getInputStream(), "US-ASCII"));
-            error = new BufferedReader(new InputStreamReader(gpgProcess.getErrorStream(), "US-ASCII"));
-
+            //get in, out and error stream from gpg process
+            in = gpgProcess.getInputStream();
+            error = gpgProcess.getErrorStream();
             out = (new OutputStreamWriter(gpgProcess.getOutputStream(), "US-ASCII"));
             //write message, newline and STRG-Z (EOF) to gpg
             out.write(msg);
@@ -48,15 +55,13 @@ public class GPGDecrypter implements Decrypter {
             out.close();
             isOutClosed = true;
 
-            StringBuilder builder = new StringBuilder();
-            //build decrypted output string
-            in.lines().forEachOrdered(builder::append);
 
-            String result = builder.toString();
+            //build decrypted output string
+            String result = convertStreamToString(in);
             //if output string is empty, build error string
             if (result.isEmpty()) {
-                error.lines().forEachOrdered(builder::append);
-                result = builder.toString();
+
+                result = convertStreamToString(error);
             }
             return result;
         } finally {
